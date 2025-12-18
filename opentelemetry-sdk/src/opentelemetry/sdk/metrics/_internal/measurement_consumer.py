@@ -154,7 +154,6 @@ class SynchronousMeasurementConsumer(MeasurementConsumer):
         with self._lock:
             if metric_reader in self._reader_storages:
                 _logger.warning("'%s' already registered!", metric_reader)
-                return False
             self._sdk_config.metric_readers += type(
                 self._sdk_config.metric_readers
             )((metric_reader,))
@@ -164,7 +163,6 @@ class SynchronousMeasurementConsumer(MeasurementConsumer):
                 metric_reader._instrument_class_aggregation,
             )
             metric_reader._set_collect_callback(self.collect)
-        return True
 
     def remove_metric_reader(
         self, metric_reader: "opentelemetry.sdk.metrics.MetricReader"
